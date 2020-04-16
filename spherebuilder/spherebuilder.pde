@@ -21,14 +21,14 @@ void setup() {
   // rotate(PI/4); // optional rotation
 
   // draw vertical axis
-  stroke(0, 191, 0);
+  stroke(0, 0, 191);
   line(0, radius * yFactor, 0, -radius * yFactor);
 
   // draw sphere outline
-  stroke(191, 0, 0);
+  stroke(0, 191, 0);
   circle( 0,  0, diameter);
 
   // draw center circle
-  stroke(0, 0, 191);
+  stroke(191, 0, 0);
   ellipse(0, 0, 360, 180);
 }
