@@ -15,6 +15,7 @@ void settings() {
 }
 
 void setup() {
+  background(240);
   translate(width/2,  width/2);
   noFill();
   strokeWeight(0.5);
