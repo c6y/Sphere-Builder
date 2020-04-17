@@ -1,5 +1,7 @@
 int radius = 180;
 int diameter = radius * 2;
+float numOfSlicesPerHalf = 6;
+float rotateByPI = 0;
 
 float xFactor = 1;              // eCity horizontal-axis 1:1 compression
 float yFactor = sqrt(3.0)/2;    // eCity vertical-axis compression
@@ -19,7 +21,7 @@ void setup() {
   translate(width/2,  width/2);
   noFill();
   strokeWeight(0.5);
-  // rotate(PI/4); // optional rotation
+  rotate(rotateByPI);
 
   // draw vertical axis
   stroke(191, 0, 0);
@@ -27,11 +29,10 @@ void setup() {
 
   // draw slices
   stroke(0, 191, 0);
-  drawSlice(0.0);
-  drawSlice(0.2);
-  drawSlice(0.4);
-  drawSlice(0.6);
-  drawSlice(0.8);
+  float sliceHeight = 1/numOfSlicesPerHalf;
+  for (int i = 0; i < numOfSlicesPerHalf; i = i+1) {
+    drawSlice(sliceHeight * i);
+  }
 
   // draw outline
   stroke(0, 0, 191);
