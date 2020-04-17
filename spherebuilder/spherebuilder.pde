@@ -5,6 +5,8 @@ float xFactor = 1;              // eCity horizontal-axis 1:1 compression
 float yFactor = sqrt(3.0)/2;    // eCity vertical-axis compression
 float zFactor = 0.5;            // eCity depth-axis 2:1 compression
 
+PVector circle = new PVector(diameter, diameter * zFactor);
+
 void settings() {
   size(480, 480);
   noSmooth();
@@ -28,7 +30,17 @@ void setup() {
   stroke(0, 191, 0);
   circle( 0,  0, diameter);
 
-  // draw center circle
-  stroke(191, 0, 0);
-  ellipse(0, 0, 360, 180);
+  // draw circle
+  float sagitta = radius * 0.5; // 0.X on a scale of 1
+  float apothem = radius - sagitta;
+  float arcChord = calcArcChord(sagitta);
+
+  stroke(191, 0, 191);
+  ellipse(0, apothem * yFactor, arcChord, arcChord * zFactor);
+  ellipse(0, -apothem * yFactor, arcChord, arcChord * zFactor);
+}
+
+float calcArcChord(float arcSagitta) {
+  float arcChord = sqrt(arcSagitta) * sqrt(2 * radius - arcSagitta) * 2;
+  return arcChord;
 }
