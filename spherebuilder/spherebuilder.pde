@@ -5,8 +5,6 @@ float xFactor = 1;              // eCity horizontal-axis 1:1 compression
 float yFactor = sqrt(3.0)/2;    // eCity vertical-axis compression
 float zFactor = 0.5;            // eCity depth-axis 2:1 compression
 
-PVector circle = new PVector(diameter, diameter * zFactor);
-
 void settings() {
   size(480, 480);
   noSmooth();
