@@ -23,24 +23,32 @@ void setup() {
   // rotate(PI/4); // optional rotation
 
   // draw vertical axis
-  stroke(0, 0, 191);
+  stroke(191, 0, 0);
   line(0, radius * yFactor, 0, -radius * yFactor);
 
-  // draw sphere outline
+  // draw slices
   stroke(0, 191, 0);
+  drawSlice(0.0);
+  drawSlice(0.2);
+  drawSlice(0.4);
+  drawSlice(0.6);
+  drawSlice(0.8);
+
+  // draw outline
+  stroke(0, 0, 191);
   circle( 0,  0, diameter);
-
-  // draw circle
-  float sagitta = radius * 0.5; // 0.X on a scale of 1
-  float apothem = radius - sagitta;
-  float arcChord = calcArcChord(sagitta);
-
-  stroke(191, 0, 191);
-  ellipse(0, apothem * yFactor, arcChord, arcChord * zFactor);
-  ellipse(0, -apothem * yFactor, arcChord, arcChord * zFactor);
 }
 
 float calcArcChord(float arcSagitta) {
   float arcChord = sqrt(arcSagitta) * sqrt(2 * radius - arcSagitta) * 2;
   return arcChord;
+}
+
+void drawSlice(float apothemNormalized) {
+  float apothem = radius * apothemNormalized;
+  float sagitta = radius - apothem;
+  float arcChord = calcArcChord(sagitta);
+
+  ellipse(0, apothem * yFactor, arcChord, arcChord * zFactor);
+  ellipse(0, -apothem * yFactor, arcChord, arcChord * zFactor);
 }
