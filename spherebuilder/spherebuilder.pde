@@ -3,6 +3,13 @@ int diameter = radius * 2;
 float numOfSlicesPerHalf = 6;
 float rotateByPI = 0;
 
+float angleA = 60;
+float angleB = 90;
+float angleC = 30;
+float aSide;
+float bSide;
+float cSide = 1;
+
 float xFactor = 1;              // eCity horizontal-axis 1:1 compression
 float yFactor = sqrt(3.0)/2;    // eCity vertical-axis compression
 float zFactor = 0.5;            // eCity depth-axis 2:1 compression
@@ -17,6 +24,12 @@ void settings() {
 }
 
 void setup() {
+  bSide = cSide * sin(radians(angleA));
+  println("bSide: " + bSide);
+
+  aSide = cSide * sin(radians(angleC));
+  println("aSide: " + aSide);
+
   background(240);
   translate(width/2,  width/2);
   noFill();
