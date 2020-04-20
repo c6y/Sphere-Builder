@@ -9,7 +9,7 @@ Render an isometric sphere with slices. Camera angle and rotation can be set.
 *24 slices, camera looking up/down by 15°*
 
 ![Spherebuilder](spherebuilder-window-2.png)
-*6 slices, camera looking up/down by 15°, camera axis rotation is 45°*
+*6 slices, camera looking up/down by 15°, rotation of camera view axis is 45°*
 
 ![Iso View Geometry](ISO-view-geometry.png)
 *Projections of z and y axes to isometric camera view*
