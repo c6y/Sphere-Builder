@@ -1,18 +1,12 @@
 int radius = 180;
 int diameter = radius * 2;
-float numOfSlicesPerHalf = 6;
-float rotateByPI = 0;
+float numOfSlicesPerHalf = 6; // default is 6
+float rotateByPI = 0; // no rotation at 0
+float cameraAngle = 30; // eCity is 30°
 
-float angleA = 30;
-float angleB;
-float angleC;
-float aSide;
-float bSide;
-float cSide = 1;
-
-float xFactor = 1;      // eCity horizontal-axis 1:1 compression
-float yFactor;          // eCity vertical-axis compression
-float zFactor;          // eCity depth-axis 2:1 compression
+float xFactor = 1; // eCity horizontal-axis 1:1 compression
+float yFactor;     // eCity vertical-axis compression
+float zFactor;     // eCity depth-axis 2:1 compression
 
 void settings() {
   size(480, 480);
@@ -20,15 +14,7 @@ void settings() {
 }
 
 void setup() {
-  // Calculate missing triangle values
-  angleB = 90;
-  angleC = angleB - angleA;
-  aSide = cSide * sin(radians(angleC));
-  bSide = cSide * sin(radians(angleA));
-
-  // Assign triangle values to scaling factors
-  zFactor = bSide;
-  yFactor = aSide;
+  calcIsometricYandZ();
 
   background(240);
   translate(width/2,  width/2);
@@ -64,4 +50,20 @@ void drawSlice(float apothemNormalized) {
 
   ellipse(0, apothem * yFactor, arcChord, arcChord * zFactor);
   ellipse(0, -apothem * yFactor, arcChord, arcChord * zFactor);
+}
+
+void calcIsometricYandZ() {
+  // Calculate missing triangle values
+  float angleA = 90;
+  float angleB = cameraAngle;
+  float angleC = angleA - angleB;
+  float sideA = 1;
+  float sideB = sideA * sin(radians(angleC));
+  float sideC = sideA * sin(radians(angleB));
+
+  // Assign triangle values to scaling factors
+  yFactor = sideB;
+  zFactor = sideC;
+
+  println("yFactor: " + yFactor + ", zFactor: " + zFactor);
 }
