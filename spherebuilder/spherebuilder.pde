@@ -1,12 +1,15 @@
+// Sphere dimensions
 int radius = 180;
 int diameter = radius * 2;
 float numOfSlicesPerHalf = 6; // default is 6
-float rotateByPI = 0; // no rotation at 0
+
+// Camera rotations
+float cameraViewAxisRotationByPI = 0; // no rotation at 0
 float cameraAngle = 30; // eCity is 30°
 
 float xFactor = 1; // eCity horizontal-axis 1:1 compression
 float yFactor;     // eCity vertical-axis compression
-float zFactor;     // eCity depth-axis 2:1 compression
+float zFactor;     // eCity depth-axis compression
 
 void settings() {
   size(480, 480);
@@ -14,13 +17,13 @@ void settings() {
 }
 
 void setup() {
-  calcIsometricYandZ();
-
   background(240);
   translate(width/2,  width/2);
   noFill();
   strokeWeight(0.5);
-  rotate(rotateByPI * PI);
+  rotate(cameraViewAxisRotationByPI * PI);
+
+  calcIsometricYandZ();
 
   // draw vertical axis
   stroke(191, 0, 0);
