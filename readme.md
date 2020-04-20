@@ -3,7 +3,13 @@
 Render an isometric sphere with slices. Camera angle and rotation can be set.
 
 ![Spherebuilder ](spherebuilder-window.png)
-*Rendered sphere at 30 degrees*
+*The default eCity view: 12 slices, camera at 30°, no camera axis rotation*
+
+![Spherebuilder ](spherebuilder-window-2.png)
+*6 slices, camera at 15°, 45° camera axis rotation*
+
+![Spherebuilder ](spherebuilder-window-3.png)
+*24 slices, camera at 30 degrees, no camera axis rotation*
 
 ![Iso View Geometry](ISO-view-geometry.png)
 *Projections of z and y axes to isometric camera view*
