@@ -3,9 +3,9 @@ int diameter = radius * 2;
 float numOfSlicesPerHalf = 6;
 float rotateByPI = 0;
 
-float angleA = 60;
-float angleB = 90;
-float angleC = 30; // AngleB minus AngleA
+float angleA = 30;
+float angleB;
+float angleC;
 float aSide;
 float bSide;
 float cSide = 1;
@@ -24,16 +24,21 @@ void settings() {
 }
 
 void setup() {
+  angleB = 90;
+  angleC = angleB - angleA;
   aSide = cSide * sin(radians(angleC));
   bSide = cSide * sin(radians(angleA));
   println("aSide: " + aSide);
   println("bSide: " + bSide);
-  
+
+  zFactor = bSide;
+  yFactor = aSide;
+
   background(240);
   translate(width/2,  width/2);
   noFill();
   strokeWeight(0.5);
-  rotate(rotateByPI);
+  rotate(rotateByPI * PI);
 
   // draw vertical axis
   stroke(191, 0, 0);
