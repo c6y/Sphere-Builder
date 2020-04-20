@@ -5,7 +5,7 @@ float rotateByPI = 0;
 
 float angleA = 60;
 float angleB = 90;
-float angleC = 30; // AngleB minus Angle A
+float angleC = 30; // AngleB minus AngleA
 float aSide;
 float bSide;
 float cSide = 1;
@@ -24,12 +24,11 @@ void settings() {
 }
 
 void setup() {
-  bSide = cSide * sin(radians(angleA));
-  println("bSide: " + bSide);
-
   aSide = cSide * sin(radians(angleC));
+  bSide = cSide * sin(radians(angleA));
   println("aSide: " + aSide);
-
+  println("bSide: " + bSide);
+  
   background(240);
   translate(width/2,  width/2);
   noFill();
