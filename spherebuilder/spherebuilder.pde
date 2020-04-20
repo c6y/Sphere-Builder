@@ -17,10 +17,6 @@ float zFactor;          // eCity depth-axis 2:1 compression
 void settings() {
   size(480, 480);
   noSmooth();
-
-  println("xFactor: " + xFactor);
-  println("yFactor: " + yFactor);
-  println("zFactor: " + zFactor);
 }
 
 void setup() {
