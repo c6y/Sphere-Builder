@@ -10,9 +10,9 @@ float aSide;
 float bSide;
 float cSide = 1;
 
-float xFactor = 1;              // eCity horizontal-axis 1:1 compression
-float yFactor = sqrt(3.0)/2;    // eCity vertical-axis compression
-float zFactor = 0.5;            // eCity depth-axis 2:1 compression
+float xFactor = 1;      // eCity horizontal-axis 1:1 compression
+float yFactor;          // eCity vertical-axis compression
+float zFactor;          // eCity depth-axis 2:1 compression
 
 void settings() {
   size(480, 480);
@@ -24,13 +24,13 @@ void settings() {
 }
 
 void setup() {
+  // Calculate missing triangle values
   angleB = 90;
   angleC = angleB - angleA;
   aSide = cSide * sin(radians(angleC));
   bSide = cSide * sin(radians(angleA));
-  println("aSide: " + aSide);
-  println("bSide: " + bSide);
 
+  // Assign triangle values to scaling factors
   zFactor = bSide;
   yFactor = aSide;
 
