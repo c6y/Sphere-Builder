@@ -5,7 +5,7 @@ float rotateByPI = 0;
 
 float angleA = 60;
 float angleB = 90;
-float angleC = 30;
+float angleC = 30; // AngleB minus Angle A
 float aSide;
 float bSide;
 float cSide = 1;
