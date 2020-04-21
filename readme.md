@@ -20,9 +20,9 @@ Render an isometric sphere with slices. Camera angle and rotation can be set.
 ```java
 // Calculating the sides of a triangle
 angleA = 90;
-angleB = cameraAngle; // any angle between 0 and 90
+angleB = cameraPitch; // 'pitch' same as 'tilt'
 angleC = angleA - angleB;
-sideA = 1; // hypotenuse is normalized
+sideA = 1; // normalized hypotenuse
 sideB = sideA * sin(radians(angleC));
 sideC = sideA * sin(radians(angleB));
 ```
