@@ -4,24 +4,24 @@ int diameter = radius * 2;
 float numOfSlicesPerHalf = 6; // default is 6
 
 // Camera rotations
-float cameraViewAxisRotationByPI = 0; // no rotation at 0
-float cameraAngle = 30; // eCity is 30°
+float cameraPitch = 30; // eCity is 30°
+float cameraRoll = 0; // no roll at 0
 
-float xFactor = 1; // eCity horizontal-axis 1:1 compression
-float yFactor;     // eCity vertical-axis compression
-float zFactor;     // eCity depth-axis compression
+// float xFactor = 1; // eCity horizontal-axis compression is 1
+float yFactor;     // Isometric vertical-axis compression
+float zFactor;     // Isometric depth-axis compression
 
 void settings() {
-  size(480, 480);
+  size(400, 400);
   noSmooth();
 }
 
 void setup() {
-  background(240);
+  background(216, 216, 216);
   translate(width/2,  width/2);
   noFill();
   strokeWeight(0.5);
-  rotate(cameraViewAxisRotationByPI * PI);
+  rotate(radians(cameraRoll));
 
   calcIsometricYandZ();
 
@@ -58,7 +58,7 @@ void drawSlice(float apothemNormalized) {
 void calcIsometricYandZ() {
   // Calculate missing triangle values
   float angleA = 90;
-  float angleB = cameraAngle;
+  float angleB = cameraPitch;
   float angleC = angleA - angleB;
   float sideA = 1;
   float sideB = sideA * sin(radians(angleC));
