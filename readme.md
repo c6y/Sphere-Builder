@@ -14,8 +14,8 @@ Render an isometric sphere with slices. The camera's pitch (also called 'tilt'),
 ![Spherebuilder](media/sphere@1s@30@63.435.png)  
 *1 slice, camera pitch 30°, camera roll 63.435°*
 
-![Iso View Geometry](media/ISO-view-geometry.png)  
-*Projections of z and y axes to isometric camera view*
+![Spherebuilder](media/Isometry-Projection-Geometry-03k3.gif)  
+*Isometric projection geometry with a camera pitch of 30°*
 
 ```java
 // Calculating the sides of a triangle
