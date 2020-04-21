@@ -1,6 +1,6 @@
 # eBoy Spherebuilder
 
-Render an isometric sphere with slices. Camera pitch (tilt) and roll can be set.
+Render an isometric sphere with slices. The camera's pitch (also called 'tilt'), and the roll can be set.
 
 ![Spherebuilder](media/sphere@12@30@0.png)
 *12 slices, camera pitch 30°*
