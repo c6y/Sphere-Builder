@@ -1,6 +1,6 @@
 # eBoy Spherebuilder
 
-Render an isometric sphere with slices. Camera angle and rotation can be set.
+Render an isometric sphere with slices. Camera pitch (tilt) and roll can be set.
 
 ![Spherebuilder](media/sphere@12@30@0.png)
 *12 slices, camera pitch 30°*
@@ -20,7 +20,7 @@ Render an isometric sphere with slices. Camera angle and rotation can be set.
 ```java
 // Calculating the sides of a triangle
 angleA = 90;
-angleB = cameraPitch; // 'pitch' same as 'tilt'
+angleB = cameraPitch;
 angleC = angleA - angleB;
 sideA = 1; // normalized hypotenuse
 sideB = sideA * sin(radians(angleC));
