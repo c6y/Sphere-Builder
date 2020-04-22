@@ -1,7 +1,7 @@
 // Sphere dimensions
 int radius = 180;
 int diameter = radius * 2;
-float numOfSlicesPerHalf = 6; // default is 6
+float sliceCountPerHalf = 6; // default is 6
 
 // Camera rotations
 float cameraPitch = 30; // eCity is 30°
@@ -31,8 +31,8 @@ void setup() {
 
   // draw slices
   stroke(0, 191, 0);
-  float sliceHeight = 1/numOfSlicesPerHalf;
-  for (int i = 0; i < numOfSlicesPerHalf; i = i+1) {
+  float sliceHeight = 1/sliceCountPerHalf;
+  for (int i = 0; i < sliceCountPerHalf; i = i+1) {
     drawSlice(sliceHeight * i);
   }
 
