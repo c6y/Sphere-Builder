@@ -1,6 +1,10 @@
-# eBoy Spherebuilder
+# Sphere Builder
 
-Render an isometric sphere with slices. The camera's pitch (also called 'tilt'), and the roll can be set.
+Render an isometric sphere with slices.
+
+The slice count, camera pitch (also called 'tilt'), and camera roll, can all be set. Made with Processing.
+
+### Examples:
 
 ![Spherebuilder](media/sphere@12@30@0.png)  
 *12 slices, camera pitch 30°*
@@ -14,10 +18,14 @@ Render an isometric sphere with slices. The camera's pitch (also called 'tilt'),
 ![Spherebuilder](media/sphere@1s@30@63.435.png)  
 *1 slice, camera pitch 30°, camera roll 63.435°*
 
-![Spherebuilder](media/Isometry-Projection-Geometry-03k3.gif)  
-*Isometric projection geometry with a camera pitch of 30°*
+### Math:
 
-```java
+##### Calculate factors for Y and Z projection:
+
+![Spherebuilder](media/Isometry-Projection-Geometry-03k3.gif)  
+*Isometric projection geometry with a camera pitch of 30°. For projection, the y-axis is scaled by 0.87x. The z-axis by 0.5x*
+
+```processing
 // Calculating the sides of a triangle
 angleA = 90;
 angleB = cameraPitch;
