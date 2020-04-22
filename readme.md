@@ -23,7 +23,7 @@ The slice count, camera pitch (also called 'tilt'), and camera roll, can all be 
 ##### Calculate factors for Y and Z projection:
 
 ![Spherebuilder](media/Isometry-Projection-Geometry-03k3.gif)  
-*Isometric projection geometry with a camera pitch of 30°. For projection, the y-axis is scaled by 0.87x. The z-axis by 0.5x*
+*Isometric projection geometry with a camera pitch of 30°. For projection, the y-axis is scaled by 0.87x and the z-axis by 0.5x.*
 
 ```processing
 // Calculating the sides of a triangle
