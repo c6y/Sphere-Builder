@@ -36,7 +36,12 @@ def drawSlice(apothem_normalized):
   oval(-arc_chord / 2, oval_y_offset_plus, arc_chord, oval_height)
   oval(-arc_chord / 2, oval_y_offset_minus, arc_chord, oval_height)
 
-size(400, 400)
+size(364, 364)
+
+# background
+# fill(0.12, 0.13, 0.15, 1)
+# rect(0, 0, 364, 364)
+
 y_factor = calc_triangle_side_B(1, 90, CAMERA_PITCH)
 z_factor = calc_triangle_side_C(1, 90, CAMERA_PITCH)
 
