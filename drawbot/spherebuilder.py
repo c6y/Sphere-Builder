@@ -3,14 +3,14 @@ RADIUS = 180
 DIAMETER = RADIUS * 2
 
 # Slices
-SLICE_COUNT_PER_HALF = 3
+SLICE_COUNT_PER_HALF = 9 # default is 9
 SEGMENTATION_PERIMETER = True
 # if true, slice into segments with same perimeter (default)
 # if false, slice into segments with same height
 
 # Camera rotations
-CAMERA_PITCH = 30   # eCity is 30°
-CAMERA_ROLL = 45    # no roll at 0
+CAMERA_PITCH = 30       # default is 30° (eCity)
+CAMERA_ROLL = 0         # no roll at 0
 
 def calc_triangle_side_B(side_A, angle_A, angle_B):
     angle_C = angle_A - angle_B
@@ -70,4 +70,9 @@ with savedState():
     stroke(1, 0, 0, 1)
     oval(-RADIUS, -RADIUS, DIAMETER, DIAMETER)
 
-saveImage("~/Desktop/firstImage.pdf")
+slice_count_total = SLICE_COUNT_PER_HALF * 2
+filename = "sphere_%ss_%sp_%sr" % (slice_count_total, CAMERA_PITCH, CAMERA_ROLL)
+extension = ".svg"
+directory = "~/Desktop/"
+path = directory + filename + extension
+saveImage(path)
