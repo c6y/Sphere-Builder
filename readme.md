@@ -1,6 +1,6 @@
 # Sphere Builder
 
-Render an isometric sphere with slices. The slice count, camera pitch (also called 'tilt'), and camera roll, can all be set. Made with DrawBot/Python.
+Render an isometric sphere with slices. The slice count, camera pitch (also called 'tilt'), and camera roll, can all be set. Written in [DrawBot](https://github.com/typemytype/drawbot), a wonderful Python based application for MacOS.
 
 ![Spherebuilder](media/sphere_12s_30p_0r.svg)  
 *12 slices, camera pitch 30°*
