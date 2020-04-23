@@ -25,18 +25,18 @@ def drawSlice(apothem_normalized):
   sagitta = RADIUS - apothem
   arc_chord = calc_arc_chord(sagitta)
   oval_height = arc_chord * z_factor
-  oval_y_offset_plus = -oval_height/2 + apothem * y_factor
-  oval_y_offset_minus = -oval_height/2 - apothem * y_factor
+  oval_y_offset_plus = -oval_height / 2 + apothem * y_factor
+  oval_y_offset_minus = -oval_height / 2 - apothem * y_factor
 
-  oval(-arc_chord/2, oval_y_offset_plus, arc_chord, oval_height)
-  oval(-arc_chord/2, oval_y_offset_minus, arc_chord, oval_height)
+  oval(-arc_chord / 2, oval_y_offset_plus, arc_chord, oval_height)
+  oval(-arc_chord / 2, oval_y_offset_minus, arc_chord, oval_height)
 
 size(400, 400)
 y_factor = calc_triangle_side_B(1, 90, CAMERA_PITCH)
 z_factor = calc_triangle_side_C(1, 90, CAMERA_PITCH)
 
 with savedState():
-    translate(width()/2, height()/2)
+    translate(width() / 2, height() / 2)
     fill()
     strokeWidth(1)
 
@@ -46,7 +46,7 @@ with savedState():
 
     # draw slices
     stroke(0, 0.75, 0, 1)
-    slice_height = 1/SLICE_COUNT_PER_HALF;
+    slice_height = 1 / SLICE_COUNT_PER_HALF;
     for i in range(SLICE_COUNT_PER_HALF):
         drawSlice(slice_height * i);
 
