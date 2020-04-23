@@ -3,14 +3,14 @@ RADIUS = 180
 DIAMETER = RADIUS * 2
 
 # Slices
-SLICE_COUNT_PER_HALF = 9
+SLICE_COUNT_PER_HALF = 3
 SEGMENTATION_PERIMETER = True
 # if true, slice into segments with same perimeter (default)
 # if false, slice into segments with same height
 
 # Camera rotations
-CAMERA_PITCH = 50   # eCity is 30°
-CAMERA_ROLL = 0     # no roll at 0
+CAMERA_PITCH = 30   # eCity is 30°
+CAMERA_ROLL = 45    # no roll at 0
 
 def calc_triangle_side_B(side_A, angle_A, angle_B):
     angle_C = angle_A - angle_B
@@ -42,6 +42,7 @@ z_factor = calc_triangle_side_C(1, 90, CAMERA_PITCH)
 
 with savedState():
     translate(width() / 2, height() / 2)
+    rotate(CAMERA_ROLL, center=(0, 0))
     fill()
     strokeWidth(1)
 
