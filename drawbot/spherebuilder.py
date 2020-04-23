@@ -1,10 +1,15 @@
 # Sphere dimensions
 RADIUS = 180
 DIAMETER = RADIUS * 2
-SLICE_COUNT_PER_HALF = 12
+
+# Slices
+SLICE_COUNT_PER_HALF = 9
+SEGMENTATION_PERIMETER = True
+# if true, slice into segments with same perimeter (default)
+# if false, slice into segments with same height
 
 # Camera rotations
-CAMERA_PITCH = 30   # eCity is 30°
+CAMERA_PITCH = 50   # eCity is 30°
 CAMERA_ROLL = 0     # no roll at 0
 
 def calc_triangle_side_B(side_A, angle_A, angle_B):
@@ -44,14 +49,24 @@ with savedState():
     stroke(0, 0, 1, 1)
     line((0, RADIUS * y_factor), (0, -RADIUS * y_factor))
 
-    # draw slices
     stroke(0, 0.75, 0, 1)
-    slice_height = 1 / SLICE_COUNT_PER_HALF;
-    for i in range(SLICE_COUNT_PER_HALF):
-        drawSlice(slice_height * i);
+
+    if SEGMENTATION_PERIMETER:
+        # slice in half
+        drawSlice(0)
+        # slice into segments with same perimeter
+        for i in range(SLICE_COUNT_PER_HALF):
+            angle = 90 / SLICE_COUNT_PER_HALF * i
+            foo = calc_triangle_side_B(1, 90, angle)
+            drawSlice(foo)
+    else:
+        # slice into segments with same height
+        slice_height = 1 / SLICE_COUNT_PER_HALF
+        for i in range(SLICE_COUNT_PER_HALF):
+            drawSlice(slice_height * i)
 
     # draw outline
     stroke(1, 0, 0, 1)
     oval(-RADIUS, -RADIUS, DIAMETER, DIAMETER)
 
-saveImage("~/Desktop/firstImage.svg")
+saveImage("~/Desktop/firstImage.pdf")
