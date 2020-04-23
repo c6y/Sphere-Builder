@@ -1,6 +1,7 @@
 # Sphere dimensions
 RADIUS = 180
 DIAMETER = RADIUS * 2
+SLICE_COUNT_PER_HALF = 12
 
 # Camera rotations
 CAMERA_PITCH = 30   # eCity is 30°
@@ -23,7 +24,6 @@ def drawSlice(apothem_normalized):
   apothem = RADIUS * apothem_normalized
   sagitta = RADIUS - apothem
   arc_chord = calc_arc_chord(sagitta)
-  print(z_factor)
   oval_height = arc_chord * z_factor
   oval_y_offset_plus = -oval_height/2 + apothem * y_factor
   oval_y_offset_minus = -oval_height/2 - apothem * y_factor
@@ -44,19 +44,14 @@ with savedState():
     stroke(0, 0, 1, 1)
     line((0, RADIUS * y_factor), (0, -RADIUS * y_factor))
 
+    # draw slices
     stroke(0, 0.75, 0, 1)
-
-    sliceHeight1 = 0
-    drawSlice(sliceHeight1)
-
-    sliceHeight2 = 0.5
-    drawSlice(sliceHeight2)
-
-    sliceHeight3 = 0.9
-    drawSlice(sliceHeight3)
+    slice_height = 1/SLICE_COUNT_PER_HALF;
+    for i in range(SLICE_COUNT_PER_HALF):
+        drawSlice(slice_height * i);
 
     # draw outline
     stroke(1, 0, 0, 1)
     oval(-RADIUS, -RADIUS, DIAMETER, DIAMETER)
 
-saveImage("~/Desktop/firstImage.pdf")
+saveImage("~/Desktop/firstImage.svg")
