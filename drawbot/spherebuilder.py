@@ -22,19 +22,19 @@ def calc_triangle_side_C(side_A, angle_A, angle_B):
     return side_C
 
 def calc_arc_chord(arcSagitta):
-  arc_chord = sqrt(arcSagitta) * sqrt(2 * RADIUS - arcSagitta) * 2
-  return arc_chord
+    arc_chord = sqrt(arcSagitta) * sqrt(2 * RADIUS - arcSagitta) * 2
+    return arc_chord
 
 def drawSlice(apothem_normalized):
-  apothem = RADIUS * apothem_normalized
-  sagitta = RADIUS - apothem
-  arc_chord = calc_arc_chord(sagitta)
-  oval_height = arc_chord * z_factor
-  oval_y_offset_plus = -oval_height / 2 + apothem * y_factor
-  oval_y_offset_minus = -oval_height / 2 - apothem * y_factor
+    apothem = RADIUS * apothem_normalized
+    sagitta = RADIUS - apothem
+    arc_chord = calc_arc_chord(sagitta)
+    oval_height = arc_chord * z_factor
+    oval_y_offset_plus = -oval_height / 2 + apothem * y_factor
+    oval_y_offset_minus = -oval_height / 2 - apothem * y_factor
 
-  oval(-arc_chord / 2, oval_y_offset_plus, arc_chord, oval_height)
-  oval(-arc_chord / 2, oval_y_offset_minus, arc_chord, oval_height)
+    oval(-arc_chord / 2, oval_y_offset_plus, arc_chord, oval_height)
+    oval(-arc_chord / 2, oval_y_offset_minus, arc_chord, oval_height)
 
 size(364, 364)
 
@@ -58,11 +58,9 @@ with savedState():
     stroke(0, 0.75, 0, 1)
 
     if SEGMENTATION_PERIMETER:
-        # slice in half
-        drawSlice(0)
         # slice into segments with same perimeter
         for i in range(SLICE_COUNT_PER_HALF):
-            angle = 90 / SLICE_COUNT_PER_HALF * i
+            angle = 90 / SLICE_COUNT_PER_HALF * (i + 1)
             foo = calc_triangle_side_B(1, 90, angle)
             drawSlice(foo)
     else:
