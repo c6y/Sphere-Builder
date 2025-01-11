@@ -6,6 +6,7 @@ DIAMETER = RADIUS * 2  # Diameter of the sphere
 
 COLOR_BACK = (0.12, 0.13, 0.15, 1)
 COLOR_CIRCLE_OUTLINE = (1.0, 0.1, 0.1, 1)
+COLOR_CIRCLE_FILL = (1.0, 1.0, 0.1, 1) # (None) for transparent
 COLOR_SLICES = (0.1, 1.0, 0.1, 1)
 COLOR_AXIS = (0.2, 0.2, 1.0, 1)
 
@@ -46,7 +47,7 @@ def draw_slice(apothem_normalized, y_factor, z_factor):
 
 # Canvas setup
 STROKE_WEIGHT = 2
-CANVAS_SIZE = 360 + (STROKE_WEIGHT * 5)  # Canvas dimensions (adjust as needed)
+CANVAS_SIZE = 360 + (STROKE_WEIGHT * 19)  # Canvas dimensions (adjust as needed)
 size(CANVAS_SIZE, CANVAS_SIZE)
 fill(*COLOR_BACK)  # Background color
 rect(0, 0, width(), height())  # Fill the background
@@ -61,9 +62,14 @@ with savedState():
     rotate(CAMERA_ROLL, center=(0, 0))  # Apply camera roll
     fill(None)  # No fill for slices
     strokeWidth(STROKE_WEIGHT)
+    
+    # Draw sphere fill
+    fill(*COLOR_CIRCLE_FILL)
+    oval(-RADIUS, -RADIUS, DIAMETER, DIAMETER)
 
     # Draw the y-axis
     stroke(*COLOR_AXIS)  # Blue for y-axis
+    fill(None)  # Red for outline
     lineCap("round")  # Set the line cap to rounded ends
     line((0, RADIUS * y_factor), (0, -RADIUS * y_factor))
     
