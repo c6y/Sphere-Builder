@@ -4,14 +4,15 @@ from math import sin, radians, sqrt
 RADIUS = 180  # Radius of the sphere (default is 180 for full size)
 DIAMETER = RADIUS * 2  # Diameter of the sphere
 
-COLOR_BACK = (0.12, 0.13, 0.15, 1)
-COLOR_CIRCLE_OUTLINE = (1.0, 0.1, 0.1, 1)
-COLOR_CIRCLE_FILL = (1.0, 1.0, 0.1, 1) # (None) for transparent
-COLOR_SLICES = (0.1, 1.0, 0.1, 1)
-COLOR_AXIS = (0.2, 0.2, 1.0, 1)
+# Colors constants for spheres. Set transparency to 0 or (None)to hide
+COLOR_BACK = (0, 0, 1, 1)
+COLOR_CIRCLE_OUTLINE = (1, 1, 1, 1)
+COLOR_CIRCLE_FILL = (0, 0, 1, 0) 
+COLOR_SLICES = (1, 1, 0, 1)
+COLOR_AXIS = (1, 1, 1, 0)
 
 # Slice configuration
-SLICE_COUNT_PER_HALF = 5  # Number of slices per hemisphere
+SLICE_COUNT_PER_HALF = 3  # Number of slices per hemisphere
 SEGMENTATION_PERIMETER = True  # True for equal perimeter slices, False for equal height
 
 # Camera configuration
@@ -46,8 +47,11 @@ def draw_slice(apothem_normalized, y_factor, z_factor):
     oval(-arc_chord / 2, oval_y_offset_minus, arc_chord, oval_height)
 
 # Canvas setup
-STROKE_WEIGHT = 2
-CANVAS_SIZE = 360 + (STROKE_WEIGHT * 19)  # Canvas dimensions (adjust as needed)
+STROKE_WEIGHT = 10
+PADDING = STROKE_WEIGHT * 37
+print("PADDING: ", (PADDING - STROKE_WEIGHT) / 2)
+CANVAS_SIZE = 360 + (PADDING)  # Canvas dimensions (adjust as needed)
+
 size(CANVAS_SIZE, CANVAS_SIZE)
 fill(*COLOR_BACK)  # Background color
 rect(0, 0, width(), height())  # Fill the background
@@ -73,7 +77,6 @@ with savedState():
     lineCap("round")  # Set the line cap to rounded ends
     line((0, RADIUS * y_factor), (0, -RADIUS * y_factor))
     
-
     # Draw slices
     stroke(*COLOR_SLICES)  # Green for slices
     if SEGMENTATION_PERIMETER:
