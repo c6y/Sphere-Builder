@@ -1,81 +1,115 @@
-# Sphere dimensions
-RADIUS = 180
+from math import sin, radians, sqrt
+
+# Constants
+RADIUS = 30 * 1.05128205  # Radius of the sphere
 DIAMETER = RADIUS * 2
-
-# Slices
-SLICE_COUNT_PER_HALF = 9 # default is 9
+COLOR_BACK = (0, 0, 0.5, 1)
+COLOR_CIRCLE_OUTLINE = (1, 1, 1, 1)
+COLOR_CIRCLE_FILL = (0, 0, 0, 0)
+COLOR_SLICES = (1, 1, 0, 1)
+COLOR_AXIS = (1, 0, 0, 1)
+SLICE_COUNT_PER_HALF = 2
 SEGMENTATION_PERIMETER = True
-# if true, slice into segments with same perimeter (default)
-# if false, slice into segments with same height
+# ECITY! pitch = 30, roll is 90 + 26.565
+CAMERA_PITCH = 30  # in degrees
+CAMERA_ROLL =  90 + 26.565  # in degrees
+STROKE_WEIGHT = 1
+PADDING = STROKE_WEIGHT * 5
+CANVAS_SIZE = 60 + PADDING
 
-# Camera rotations
-CAMERA_PITCH = 30       # default is 30° (eCity)
-CAMERA_ROLL = 0         # no roll at 0
+# Utility Functions
+def sin_deg(angle):
+    """Return the sine of an angle in degrees."""
+    return sin(radians(angle))
 
 def calc_triangle_side_B(side_A, angle_A, angle_B):
-    angle_C = angle_A - angle_B
-    side_B = side_A * sin(radians(angle_C))
-    return side_B
+    """Calculate side B given side_A and two angles (in degrees)."""
+    return side_A * sin_deg(angle_A - angle_B)
 
 def calc_triangle_side_C(side_A, angle_A, angle_B):
-    side_C = side_A * sin(radians(angle_B))
-    return side_C
+    """Calculate side C given side_A and an angle (in degrees)."""
+    return side_A * sin_deg(angle_B)
 
-def calc_arc_chord(arcSagitta):
-    arc_chord = sqrt(arcSagitta) * sqrt(2 * RADIUS - arcSagitta) * 2
-    return arc_chord
+def calc_arc_chord(arc_sagitta):
+    """
+    Calculate the chord length of an arc given its sagitta.
+    Combines square roots for slight performance improvement.
+    """
+    return 2 * sqrt(arc_sagitta * (2 * RADIUS - arc_sagitta))
 
-def drawSlice(apothem_normalized):
+def draw_slice(apothem_normalized, y_factor, z_factor):
+    """
+    Draw a single slice using the normalized apothem and perspective factors.
+    """
     apothem = RADIUS * apothem_normalized
     sagitta = RADIUS - apothem
     arc_chord = calc_arc_chord(sagitta)
     oval_height = arc_chord * z_factor
-    oval_y_offset_plus = -oval_height / 2 + apothem * y_factor
-    oval_y_offset_minus = -oval_height / 2 - apothem * y_factor
+    # Calculate y-offsets for the upper and lower slices
+    offset = oval_height / 2
+    oval_y_plus = -offset + apothem * y_factor
+    oval_y_minus = -offset - apothem * y_factor
 
-    oval(-arc_chord / 2, oval_y_offset_plus, arc_chord, oval_height)
-    oval(-arc_chord / 2, oval_y_offset_minus, arc_chord, oval_height)
+    # Draw upper and lower slices
+    oval(-arc_chord / 2, oval_y_plus, arc_chord, oval_height)
+    oval(-arc_chord / 2, oval_y_minus, arc_chord, oval_height)
 
-size(364, 364)
+# Drawing Functions
+def setup_canvas():
+    size(CANVAS_SIZE, CANVAS_SIZE)
+    fill(*COLOR_BACK)
+    rect(0, 0, width(), height())
 
-# background
-# fill(0.12, 0.13, 0.15, 1)
-# rect(0, 0, 364, 364)
-
-y_factor = calc_triangle_side_B(1, 90, CAMERA_PITCH)
-z_factor = calc_triangle_side_C(1, 90, CAMERA_PITCH)
-
-with savedState():
-    translate(width() / 2, height() / 2)
-    rotate(CAMERA_ROLL, center=(0, 0))
-    fill()
-    strokeWidth(1)
-
-    # draw y-axis
-    stroke(0, 0, 1, 1)
-    line((0, RADIUS * y_factor), (0, -RADIUS * y_factor))
-
-    stroke(0, 0.75, 0, 1)
-
-    if SEGMENTATION_PERIMETER:
-        # slice into segments with same perimeter
-        for i in range(SLICE_COUNT_PER_HALF):
-            angle = 90 / SLICE_COUNT_PER_HALF * (i + 1)
-            foo = calc_triangle_side_B(1, 90, angle)
-            drawSlice(foo)
-    else:
-        # slice into segments with same height
-        slice_height = 1 / SLICE_COUNT_PER_HALF
-        for i in range(SLICE_COUNT_PER_HALF):
-            drawSlice(slice_height * i)
-
-    # draw outline
-    stroke(1, 0, 0, 1)
+def draw_background():
+    fill(*COLOR_CIRCLE_FILL)
     oval(-RADIUS, -RADIUS, DIAMETER, DIAMETER)
 
-slice_count_total = SLICE_COUNT_PER_HALF * 2
-filename = "sphere_%ss_%sp_%sr" % (slice_count_total, CAMERA_PITCH, CAMERA_ROLL)
-extension = ".svg"
-directory = "~/Desktop/"
-path = directory + filename + extension
-saveImage(path)
+def draw_axes(y_factor):
+    stroke(*COLOR_AXIS)
+    lineCap("round")
+    line((0, RADIUS * y_factor), (0, -RADIUS * y_factor))
+
+def draw_slices(y_factor, z_factor):
+    stroke(*COLOR_SLICES)
+    fill(None)
+    if SEGMENTATION_PERIMETER:
+        # Divide 90° into equal parts for each slice in the hemisphere
+        for i in range(SLICE_COUNT_PER_HALF):
+            angle = 90 / SLICE_COUNT_PER_HALF * (i + 1)
+            apothem_normalized = calc_triangle_side_B(1, 90, angle)
+            draw_slice(apothem_normalized, y_factor, z_factor)
+    else:
+        slice_height = 1 / SLICE_COUNT_PER_HALF
+        for i in range(SLICE_COUNT_PER_HALF):
+            draw_slice(slice_height * i, y_factor, z_factor)
+
+def draw_outline():
+    stroke(*COLOR_CIRCLE_OUTLINE)
+    fill(None)
+    oval(-RADIUS, -RADIUS, DIAMETER, DIAMETER)
+
+def save_output():
+    slice_count_total = SLICE_COUNT_PER_HALF * 2
+    filename = f"sphere_{slice_count_total}s_{CAMERA_PITCH}p_{CAMERA_ROLL}r.svg"
+    directory = "~/Desktop/SphereBuilder/"
+    path = directory + filename
+    saveImage(path, antiAliasing=True)
+
+def main():
+    setup_canvas()
+    # Calculate perspective factors using the helper for sine in degrees
+    y_factor = calc_triangle_side_B(1, 90, CAMERA_PITCH)
+    z_factor = calc_triangle_side_C(1, 90, CAMERA_PITCH)
+
+    with savedState():
+        strokeWidth(STROKE_WEIGHT)
+        translate(width() / 2, height() / 2)
+        rotate(CAMERA_ROLL)
+        draw_background()
+        draw_axes(y_factor)
+        draw_slices(y_factor, z_factor)
+        draw_outline()
+    save_output()
+
+# Run the program
+main()
